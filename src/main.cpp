@@ -77,7 +77,7 @@ void setup() {
 }
 
 double ultrasonicDistanceRead(){
-
+  
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   
@@ -130,7 +130,8 @@ void steerRight(){
 //the following function is executed when the car detects an obstacle
 
 void avoidObstacle(double dist,double min){
-
+  
+//the following code is based on theoretical postulation as it's not yet tested
    while (dist <= min){
     steerRight();
     delay(400);

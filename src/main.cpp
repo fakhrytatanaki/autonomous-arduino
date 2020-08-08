@@ -4,8 +4,10 @@
 
 #define trigPin 3 // pin for emitter
 #define echoPin 2  // pin for reciever
+int turn;
   
   //class for setting up motors on an L298 H-Bridge motor driver
+
 class Motor{
   
 public:
@@ -75,16 +77,21 @@ void setup() {
 }
 
 double ultrasonicDistanceRead(){
+
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
+  
   // Sets the trigPin on HIGH state for 10 micro seconds
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
+
   // Reads the echoPin, returns the sound wave travel time in microseconds
   double duration = pulseIn(echoPin, HIGH);
+
   // Calculating the distance
   double distance= duration*0.034/2;
+
   return distance;
 }
 
@@ -104,11 +111,11 @@ void stopMoving(){
 
 }
 
-void moveLeft(){
+void turnLeft(){
 
 }
 
-void moveRight(){
+void turnRight(){
 
 }
 
@@ -117,13 +124,36 @@ void steerLeft(){
 }
 
 void steerRight(){
-
 }
 
 
 //the following function is executed when the car detects an obstacle
 
 void avoidObstacle(double dist,double min){
+
+   while (dist <= min){
+    steerRight();
+    delay(400);
+    turnLeft();
+    delay(400);
+     turn++;
+  }
+
+
+  if (turn==0){
+    moveForward();
+  }
+
+  else if (turn > 0){
+    steerLeft();
+    delay(400);
+    turnRight();
+    delay(400);
+    turn--;
+  }
+
+  
+ 
  
 }
   
